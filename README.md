@@ -32,7 +32,7 @@ When the application is started for the first time, `tasks.json` file is created
 
 Below video shows the task management CLI functionality in action
 
-https://github.com/abaldawa/task-management-cli-select/assets/5449692/f93ea0f8-a7aa-48eb-8f34-1afbd2f4b281
+https://github.com/abaldawa/task-management-cli-select/assets/5449692/0dfc3b8e-dc58-4033-b330-df996142cdf7
 
 ### Install and run as a CLI globally:
 
@@ -41,11 +41,11 @@ https://github.com/abaldawa/task-management-cli-select/assets/5449692/f93ea0f8-a
 3. execute `npm i`
 4. execute `npm run build` (This will compile the project from TS to JS under `build` folder)
 5. execute `npm link` (or `npm i -g`) (Links and makes `task-management-cli` available on global path)
-6. Execute from any path `task-management-cli` to run the cli application and see the run option.
+6. Execute from any path `task-management-cli` to run the cli application and see the selection options.
 
    Below video demonstrates the global CLI installation and invoking task-management-cli
 
-   https://github.com/abaldawa/task-management-cli-select/assets/5449692/e6e3a77f-4883-45a6-92e3-f9765d9911f3
+   https://github.com/abaldawa/task-management-cli-select/assets/5449692/916ff6db-65fa-4a15-a6e2-f89f812ea2e5
 
 ### Design and implementation
 

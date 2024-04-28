@@ -6,6 +6,7 @@
 
 import { ExitPromptError } from '@inquirer/core';
 import { showAllSupportedCommands } from './app/commands';
+import { logger } from './app/utils/cli/logger';
 import * as db from './app/database';
 
 const start = async () => {
@@ -18,7 +19,7 @@ const start = async () => {
      * manually exits CLI or select exit option
      */
     while (true) {
-      console.clear();
+      logger.clearConsole();
 
       // Show all commands on CLI prompt and wait for user selection
       const commandHandlerFn = await showAllSupportedCommands();
@@ -29,7 +30,7 @@ const start = async () => {
   } catch (error: unknown) {
     // Handle only if the user has not manually exited on any `inquirer` prompt
     if (!(error instanceof ExitPromptError)) {
-      console.log('Error occurred', error);
+      logger.error('Error occurred', error);
       process.exit(1);
     }
   }

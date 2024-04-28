@@ -5,6 +5,7 @@
 import { Separator, input, select } from '@inquirer/prompts';
 import { CommandHandlerFunction } from '../../utils/cli/types';
 import { confirmAction } from '../../utils/cli/cli';
+import { logger } from '../../utils/cli/logger';
 import * as taskModel from '../../database/models/tasks';
 
 /**
@@ -36,7 +37,7 @@ const listAllTasks: CommandHandlerFunction = async () => {
       break;
     }
 
-    console.clear();
+    logger.clearConsole();
   }
 };
 
@@ -46,23 +47,33 @@ const listAllTasks: CommandHandlerFunction = async () => {
  * Adds a task to the task list
  */
 const addTask: CommandHandlerFunction = async () => {
-  const newTask: Omit<taskModel.Task, 'id'> = {
-    title: await input({
-      message: 'Enter task name',
-      validate: (value) => {
-        return !value.trim() ? 'Task name cannot be empty' : true;
-      },
-    }),
-    description: await input({
-      message: 'Enter task description',
-      validate: (value) => {
-        return !value.trim() ? 'Task description cannot be empty' : true;
-      },
-    }),
-    status: 'NOT_COMPLETED',
-  };
+  while (true) {
+    const newTask: Omit<taskModel.Task, 'id'> = {
+      title: await input({
+        message: 'Enter task name',
+        validate: (value) => {
+          return !value.trim() ? 'Task name cannot be empty' : true;
+        },
+      }),
+      description: await input({
+        message: 'Enter task description',
+        validate: (value) => {
+          return !value.trim() ? 'Task description cannot be empty' : true;
+        },
+      }),
+      status: 'NOT_COMPLETED',
+    };
 
-  await taskModel.add(newTask);
+    await taskModel.add(newTask);
+
+    logger.log(`Task '${newTask.title}' added successfully`);
+
+    const addMore = await confirmAction('Do you want to add more tasks?');
+
+    if (!addMore) {
+      break;
+    }
+  }
 };
 
 /**
@@ -116,7 +127,7 @@ const completeTask: CommandHandlerFunction = async () => {
 
     wasTaskCompleted = true;
 
-    console.clear();
+    logger.clearConsole();
   }
 };
 
@@ -164,7 +175,7 @@ const removeTask: CommandHandlerFunction = async () => {
       wasTaskRemoved = true;
     }
 
-    console.clear();
+    logger.clearConsole();
   }
 };
 
